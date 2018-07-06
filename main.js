@@ -65,6 +65,17 @@ var editGame = function (gameID) {
 	showPage('main-edit');
 };
 
+var printGame = function (gameID) {
+	var game = DATABASE[gameID];
+	var doc = new jsPDF();
+	doc.setFontType('bold');
+	doc.text(20, 20, decode(game.title));
+	doc.setFontType('normal');
+	doc.text(20, 30, decode(game.materials));
+	doc.text(20, 40, decode(game.description));
+	doc.save('gioco.pdf');
+};
+
 var saveGame = function (gameID) {
 	if (!gameID) {
 		gameID = null;
@@ -146,6 +157,9 @@ $('#display-toolbar-back').on('click', function () {
 });
 $('#display-toolbar-edit').on('click', function () {
 	editGame($('#main-display').data('gameID'));
+});
+$('#display-toolbar-print').on('click', function () {
+	printGame($('#main-display').data('gameID'));
 });
 
 // EDIT
